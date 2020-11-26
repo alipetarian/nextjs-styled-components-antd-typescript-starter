@@ -1,5 +1,5 @@
-
-import { createGlobalStyle, ThemeProvider } from 'styled-components'
+import { ReactNode } from 'react';
+import { createGlobalStyle, ThemeProvider } from 'styled-components';
 
 const GlobalStyles = createGlobalStyle`
   @font-face {
@@ -15,7 +15,7 @@ const GlobalStyles = createGlobalStyle`
   body{
     font-family: 'Sofia Pro'
   }
-`
+`;
 
 const theme = {
   colors: {
@@ -30,14 +30,17 @@ const theme = {
     bgGrey: '#F5F5F8',
     white: '#FFFFFF',
   },
+};
+
+type IProps = {
+  children: ReactNode
 }
 
-const Layout = ({ children }) => (
+const Layout = ({ children }: IProps) => (
   <>
     <GlobalStyles />
     <ThemeProvider theme={theme}>{children}</ThemeProvider>
   </>
-)
+);
 
-
-export default Layout
+export default Layout;
