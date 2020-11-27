@@ -20,11 +20,23 @@ module.exports = {
     'react',
     '@typescript-eslint',
   ],
+  settings: {
+    'import/resolver': {
+      node: {
+        paths: ['node_modules', 'src'],
+        extensions: ['.ts', '.tsx'],
+      },
+    },
+  },
+
   rules: {
     'react/react-in-jsx-scope': 'off',
     'react/jsx-filename-extension': [2,
       { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
     ],
+    'jsx-a11y/anchor-is-valid': 'off',
+    'import/extensions': 'off',
+    'import/no-unresolved': 'off',
   },
   globals: {
     React: 'writable',

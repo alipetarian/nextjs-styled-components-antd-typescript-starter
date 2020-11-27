@@ -36,11 +36,11 @@ type IProps = {
   children: ReactNode
 }
 
-const Layout = ({ children }: IProps) => (
+const BaseLayout = ({ children }: IProps) => (
   <>
     <GlobalStyles />
     <ThemeProvider theme={theme}>{children}</ThemeProvider>
   </>
 );
 
-export default Layout;
+export default BaseLayout;
