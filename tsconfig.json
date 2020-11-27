@@ -17,7 +17,7 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "esnext",
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "paths": {
       "src": ["./src/*"]
     }

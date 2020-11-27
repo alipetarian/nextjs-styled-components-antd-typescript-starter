@@ -6,13 +6,13 @@ type Iprops = {
 
 const LeftMenu = ({ mode }:Iprops) => (
   <Menu mode={mode === 'horizontal' ? 'horizontal' : 'vertical'}>
-    <Menu.Item key="mail">
+    <Menu.Item>
       <a href="/">Home</a>
     </Menu.Item>
-    <Menu.Item key="mail">
+    <Menu.Item>
       <a href="/about-us">About</a>
     </Menu.Item>
-    <Menu.Item key="alipay">
+    <Menu.Item>
       <a href="/contact-us">Contact</a>
     </Menu.Item>
   </Menu>
