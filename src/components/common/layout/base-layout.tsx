@@ -15,6 +15,9 @@ const GlobalStyles = createGlobalStyle`
   body{
     font-family: 'Sofia Pro'
   }
+  main{
+    min-height: 80vh;
+  }
 `;
 
 const theme = {

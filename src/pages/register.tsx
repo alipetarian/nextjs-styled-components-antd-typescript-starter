@@ -1,6 +1,6 @@
 import RegisterComp from 'components/register';
 import Head from 'next/head';
-import Layout from '../components/common/layout/index';
+import Layout from 'components/common/layout';
 
 export default function RegisterPage() {
   return (

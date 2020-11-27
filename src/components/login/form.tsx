@@ -4,6 +4,13 @@ import {
 
 import * as yup from 'yup';
 import { useFormik } from 'formik';
+import styled from 'styled-components';
+
+const StyledForm = styled.div`
+  & .ant-form-item {
+    margin-bottom: 0;
+  }
+`;
 
 const emailNotLongEnough = 'email must be at least 3 characters';
 const passwordNotLongEnough = 'password must be at least 3 characters';
@@ -38,19 +45,12 @@ const LoginComp: React.FC = () => {
     },
   });
 
-  // const onFinish = (values) => {
-  //   console.log('Success:', values);
-  // };
-
-  // const onFinishFailed = (errorInfo) => {
-  //   console.log('Failed:', errorInfo);
-  // };
-
   return (
-    <>
-      <form
-        onSubmit={formik.handleSubmit}
+    <StyledForm>
+      <Form
+        layout="vertical"
         name="login-form"
+        onFinish={formik.handleSubmit}
       >
         <FormItem
           help={formik.touched.email && formik.errors.email ? formik.errors.email : ''}
@@ -92,12 +92,12 @@ const LoginComp: React.FC = () => {
         </FormItem>
 
         <FormItem>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" key="submit" htmlType="submit">
             Submit
           </Button>
         </FormItem>
-      </form>
-    </>
+      </Form>
+    </StyledForm>
   );
 };
 
