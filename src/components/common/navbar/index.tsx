@@ -26,6 +26,7 @@ const StyledNavbar = styled.nav`
   & .menuCon {
     width: calc(100% - 150px);
     float: left;
+
   }
   
   & .menuCon .ant-menu-item {
@@ -43,6 +44,8 @@ const StyledNavbar = styled.nav`
   
   & .menuCon .ant-menu-horizontal {
     border-bottom: none;
+    line-height: 70px;
+
   }
   
   & .menuCon .leftMenu {
@@ -102,6 +105,7 @@ const StyledNavbar = styled.nav`
   
   & .ant-drawer-body .ant-menu-horizontal {
     border-bottom: none;
+    
   }
   
   & .ant-drawer-body .ant-menu-horizontal>.ant-menu-item:hover {
@@ -147,7 +151,7 @@ const Navbar = () => {
   return (
     <StyledNavbar>
       <div className="logo">
-        <a href="">logo</a>
+        <a href="">ConnectIn</a>
       </div>
       <div className="menuCon">
         <div className="leftMenu">
