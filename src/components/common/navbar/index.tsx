@@ -160,13 +160,13 @@ const Navbar = () => {
           <span className="barsBtn" />
         </Button>
         <Drawer
-          title="Basic Drawer"
+          title="Connectin"
           placement="right"
           closable={false}
           onClose={onClose}
           visible={visible}
         >
-          <LeftMenu />
+          <LeftMenu mode="vertical" />
           <RightMenu />
         </Drawer>
       </div>

@@ -1,27 +1,25 @@
 import { Menu } from 'antd';
 
-const { SubMenu } = Menu;
-const MenuItemGroup = Menu.ItemGroup;
+type Iprops = {
+  mode? : string;
+}
 
-const LeftMenu = () => (
-  <Menu mode="horizontal">
+const LeftMenu = ({ mode }:Iprops) => (
+  <Menu mode={mode === 'horizontal' ? 'horizontal' : 'vertical'}>
     <Menu.Item key="mail">
-      <a href="#">Home</a>
+      <a href="/">Home</a>
     </Menu.Item>
-    <SubMenu title={<span>Blogs</span>}>
-      <MenuItemGroup title="Item 1">
-        <Menu.Item key="setting:1">Option 1</Menu.Item>
-        <Menu.Item key="setting:2">Option 2</Menu.Item>
-      </MenuItemGroup>
-      <MenuItemGroup title="Item 2">
-        <Menu.Item key="setting:3">Option 3</Menu.Item>
-        <Menu.Item key="setting:4">Option 4</Menu.Item>
-      </MenuItemGroup>
-    </SubMenu>
+    <Menu.Item key="mail">
+      <a href="#about">About</a>
+    </Menu.Item>
     <Menu.Item key="alipay">
-      <a href="">Contact Us</a>
+      <a href="/contact">Contact Us</a>
     </Menu.Item>
   </Menu>
 );
+
+LeftMenu.defaultProps = {
+  mode: 'horizontal',
+};
 
 export default LeftMenu;
