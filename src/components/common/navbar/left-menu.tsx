@@ -10,10 +10,10 @@ const LeftMenu = ({ mode }:Iprops) => (
       <a href="/">Home</a>
     </Menu.Item>
     <Menu.Item key="mail">
-      <a href="#about">About</a>
+      <a href="/about-us">About</a>
     </Menu.Item>
     <Menu.Item key="alipay">
-      <a href="/contact">Contact Us</a>
+      <a href="/contact-us">Contact</a>
     </Menu.Item>
   </Menu>
 );

@@ -44,7 +44,7 @@ const StyledNavbar = styled.nav`
   
   & .menuCon .ant-menu-horizontal {
     border-bottom: none;
-    line-height: 70px;
+    line-height: 67px;
 
   }
   
