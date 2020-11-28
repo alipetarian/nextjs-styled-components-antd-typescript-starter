@@ -46,7 +46,7 @@ const validationSchema = yup.object().shape({
     .min(3, passwordNotLongEnough)
     .max(255)
     .required(requiredField('Confirm Password'))
-    .oneOf([yup.ref('password'), null], 'Passwords must match'),
+    .oneOf([yup.ref('password'), ''], 'Passwords must match'),
 
 });
 
