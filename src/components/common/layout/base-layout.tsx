@@ -33,6 +33,18 @@ const theme = {
     bgGrey: '#F5F5F8',
     white: '#FFFFFF',
   },
+
+  breakpoints: {
+    sm: '576px',
+    md: '768px',
+    lg: '992px',
+    xl: '1200px',
+    xxl: '1600px',
+  },
+
+  up: (breakpoint: string, vertical: boolean = false) => `@media (min-${vertical ? 'height' : 'width'}: calc(${breakpoint} + 0.02px))`,
+  down: (breakpoint:string, vertical: boolean = false) => `@media (max-${vertical ? 'height' : 'width'}: ${breakpoint})`,
+  between: (breakpointMin: string, breakpointMax: string, vertical: boolean = false) => `@media (max-${vertical ? 'height' : 'width'}: ${breakpointMax}) and (min-${vertical ? 'height' : 'width'}: calc(${breakpointMin} + 0.02px))`,
 };
 
 type IProps = {
