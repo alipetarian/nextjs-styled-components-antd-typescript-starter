@@ -52,7 +52,7 @@ const validationSchema = yup.object().shape({
 
 const FormItem = Form.Item;
 
-const LoginComp: React.FC = () => {
+const RegisterForm: React.FC = () => {
   const formik = useFormik({
     initialValues: {
       firstName: '',
@@ -73,10 +73,10 @@ const LoginComp: React.FC = () => {
     <StyledForm>
       <Form
         layout="vertical"
-        name="login-form"
+        name="register-form"
         onFinish={formik.handleSubmit}
       >
-        <Row gutter={24}>
+        <Row gutter={{ sm: 24 }}>
           <Col xs={24} sm={12}>
             <FormItem
               help={formik.touched.firstName && formik.errors.firstName ? formik.errors.firstName : ''}
@@ -179,4 +179,4 @@ const LoginComp: React.FC = () => {
   );
 };
 
-export default LoginComp;
+export default RegisterForm;

@@ -32,7 +32,7 @@ const validationSchema = yup.object().shape({
 
 const FormItem = Form.Item;
 
-const LoginComp: React.FC = () => {
+const LoginForm: React.FC = () => {
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -101,4 +101,4 @@ const LoginComp: React.FC = () => {
   );
 };
 
-export default LoginComp;
+export default LoginForm;

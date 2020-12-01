@@ -4,7 +4,7 @@ import Form from './form';
 const LoginComp: React.FC = () => (
   <>
     <Row>
-      <Col span={8} offset={8}>
+      <Col xs={24} sm={{ span: 8, offset: 8 }}>
         <h2>Login</h2>
         <Form />
       </Col>
