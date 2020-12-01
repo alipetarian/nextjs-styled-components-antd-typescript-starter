@@ -37,6 +37,7 @@ module.exports = {
     'jsx-a11y/anchor-is-valid': 'off',
     'import/extensions': 'off',
     'import/no-unresolved': 'off',
+    'react/jsx-props-no-spreading': 'off',
   },
   globals: {
     React: 'writable',
