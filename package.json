@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "ts-node src/server.ts",
+    "dev": "ts-node --project tsconfig.server.json src/server/index.ts",
     "clean": "rm -rf .next",
-    "build": "next build",
-    "start": "next start",
+    "build:server": "tsc --project tsconfig.server.json",
+    "build:next": "next build",
+    "start": "NODE_ENV=production node dist/index.js",
+    "build": "yarn run build:next && yarn run build:server",
     "type-check": "tsc",
     "lint": "eslint src/**/*.ts{,x}"
   },
