@@ -6,11 +6,21 @@ import * as yup from 'yup';
 import { useFormik } from 'formik';
 import styled from 'styled-components';
 
-const StyledForm = styled.div`
+const StyledForm = styled.div(
+  ({
+    theme: {
+      down, breakpoints,
+    },
+  }) => `
+  
   & .ant-form-item {
     margin-bottom: 0;
   }
-`;
+  ${down(breakpoints.sm)} {
+    padding: 0 15px;
+  } 
+`,
+);
 
 const emailNotLongEnough = 'email must be at least 3 characters';
 const passwordNotLongEnough = 'password must be at least 3 characters';
