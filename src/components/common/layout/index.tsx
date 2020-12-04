@@ -1,13 +1,9 @@
-import { ReactNode } from 'react';
+/* eslint-disable react/prop-types */
 import Navbar from 'components/common/navbar';
 import Footer from 'components/common/footer';
 import BaseLayout from './base-layout';
 
-type IProps = {
-  children: ReactNode
-}
-
-const Layout = ({ children }: IProps) => (
+const Layout: React.FC<{}> = ({ children }) => (
   <BaseLayout>
     <Navbar />
     <main>

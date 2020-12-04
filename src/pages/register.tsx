@@ -1,17 +1,18 @@
 import RegisterComp from 'components/register';
 import Head from 'next/head';
-import Layout from 'components/common/layout';
+import MainLayout from 'components/common/layout';
+import PageWithLayoutType from 'types/page-with-layout';
 
-export default function RegisterPage() {
-  return (
-    <div>
-      <Head>
-        <title>Register | ConnectIn</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <Layout>
-        <RegisterComp />
-      </Layout>
-    </div>
-  );
-}
+const RegisterPage:React.FC = () => (
+  <div>
+    <Head>
+      <title>Register | ConnectIn</title>
+      <link rel="icon" href="/favicon.ico" />
+    </Head>
+    <RegisterComp />
+  </div>
+);
+
+(RegisterPage as PageWithLayoutType).layout = MainLayout;
+
+export default RegisterPage;

@@ -1,17 +1,18 @@
 import ContactComp from 'components/contact-us';
 import Head from 'next/head';
-import Layout from '../components/common/layout/index';
+import MainLayout from 'components/common/layout';
+import PageWithLayoutType from 'types/page-with-layout';
 
-export default function ContactPage() {
-  return (
-    <div>
-      <Head>
-        <title>Contact Us | ConnectIn</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <Layout>
-        <ContactComp />
-      </Layout>
-    </div>
-  );
-}
+const ContactPage: React.FC = () => (
+  <div>
+    <Head>
+      <title>Contact Us | ConnectIn</title>
+      <link rel="icon" href="/favicon.ico" />
+    </Head>
+    <ContactComp />
+  </div>
+);
+
+(ContactPage as PageWithLayoutType).layout = MainLayout;
+
+export default ContactPage;

@@ -1,17 +1,20 @@
 import LoginComp from 'components/login';
 import Head from 'next/head';
-import Layout from '../components/common/layout/index';
+import MainLayout from 'components/common/layout';
+import PageWithLayoutType from 'types/page-with-layout';
 
-export default function LoginPage() {
-  return (
-    <div>
-      <Head>
-        <title>Login | ConnectIn</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <Layout>
-        <LoginComp />
-      </Layout>
-    </div>
-  );
-}
+const LoginPage: React.FC = () => (
+  <div>
+    <Head>
+      <title>Login | ConnectIn</title>
+      <link rel="icon" href="/favicon.ico" />
+    </Head>
+
+    <LoginComp />
+
+  </div>
+);
+
+(LoginPage as PageWithLayoutType).layout = MainLayout;
+
+export default LoginPage;
