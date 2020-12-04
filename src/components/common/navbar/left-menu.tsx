@@ -1,4 +1,5 @@
 import { Menu } from 'antd';
+import Link from 'next/link';
 
 type Iprops = {
   mode? : string;
@@ -7,13 +8,19 @@ type Iprops = {
 const LeftMenu = ({ mode }:Iprops) => (
   <Menu mode={mode === 'horizontal' ? 'horizontal' : 'vertical'}>
     <Menu.Item>
-      <a href="/">Home</a>
+      <Link href="/">
+        <a>Home</a>
+      </Link>
     </Menu.Item>
     <Menu.Item>
-      <a href="/about-us">About</a>
+      <Link href="/about-us">
+        <a>About</a>
+      </Link>
     </Menu.Item>
     <Menu.Item>
-      <a href="/contact-us">Contact</a>
+      <Link href="/contact-us">
+        <a>Contact</a>
+      </Link>
     </Menu.Item>
   </Menu>
 );

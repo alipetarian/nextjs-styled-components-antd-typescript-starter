@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Drawer, Button } from 'antd';
 import LeftMenu from 'components/common/navbar/left-menu';
 import styled from 'styled-components';
+import Link from 'next/link';
 import RightMenu from './right-menu';
 
 const StyledNavbar = styled.nav`
@@ -151,7 +152,9 @@ const Navbar = () => {
   return (
     <StyledNavbar>
       <div className="logo">
-        <a href="">ConnectIn</a>
+        <Link href="/">
+          <a>ConnectIn</a>
+        </Link>
       </div>
       <div className="menuCon">
         <div className="leftMenu">
