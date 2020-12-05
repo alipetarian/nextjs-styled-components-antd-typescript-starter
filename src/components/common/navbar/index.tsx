@@ -25,9 +25,7 @@ const StyledNavbar = styled.nav`
 
 
   & .menuCon {
-    width: calc(100% - 150px);
-    float: left;
-
+    display: flex;
   }
   
   & .menuCon .ant-menu-item {
@@ -50,11 +48,11 @@ const StyledNavbar = styled.nav`
   }
   
   & .menuCon .leftMenu {
-    float: left;
+    flex: 2
   }
   
   & .menuCon .rightMenu {
-    float: right;
+    flex: 1;
   }
   
   & .barsMenu {
@@ -118,6 +116,10 @@ const StyledNavbar = styled.nav`
       display: inline-block;
     }
   
+    & .menuCon{
+      justify-content: flex-end;
+    }
+
     & .leftMenu,
     & .rightMenu {
       display: none;
