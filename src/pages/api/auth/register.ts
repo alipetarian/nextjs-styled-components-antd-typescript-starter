@@ -1,24 +1,28 @@
+/* eslint-disable camelcase */
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-const axios = require('axios');
-/* eslint-disable camelcase */
-const bcrypt = require('bcryptjs');
-// // const Joi = require('joi');
-const jwt = require('jsonwebtoken');
+import axios from 'axios';
+import bcrypt from 'bcrypt';
+// import jwt from 'jsonwebtoken';
 
-const jwtKey = process.env.CI_JWT_SECRET_KEY;
+// const jwtKey = process.env.CI_JWT_SECRET_KEY || '';
 // const adminEmail = process.env.CI_ADMIN_EMAIL;
 const hasuraEndpoint = `${process.env.CI_HASURA_GRAPQHL_ENDPOINT}/graphql`;
 
 type Data = {
   message: string
   code?: string
+  user?: object
 }
 
 const SIGNUP_HASURA_OPERATION = `
   mutation ($email: String!, $first_name: String!, $last_name: String!, $password: String!, $username: String!, $company_name: String!,$phone_number: String!) {
     insert_users_one(object: {email: $email, first_name: $first_name, last_name: $last_name, password: $password, username: $username, company_name: $company_name, phone_number: $phone_number}) {
-      user_id
+      user_id,
+      first_name,
+      last_name,
+      email,
+      username
     }
   }
 `;
@@ -57,30 +61,28 @@ export default async function register(req: NextApiRequest, res : NextApiRespons
         });
       }
 
-      const tokenContents = {
-        sub: data.insert_users_one.user_id.toString(),
-        name: `${first_name} ${last_name}`,
-        iat: Date.now() / 1000,
-        'https://hasura.io/jwt/claims': {
-          'x-hasura-allowed-roles': ['user'],
-          'x-hasura-user-id': data.insert_users_one.user_id.toString(),
-          'x-hasura-default-role': 'user',
-          'x-hasura-role': 'user',
-        },
-        exp: Math.floor(Date.now() / 1000) + (60 * 60),
-      };
+      // const tokenContents = {
+      //   sub: data.insert_users_one.user_id.toString(),
+      //   name: `${first_name} ${last_name}`,
+      //   iat: Date.now() / 1000,
+      //   'https://hasura.io/jwt/claims': {
+      //     'x-hasura-allowed-roles': ['user'],
+      //     'x-hasura-user-id': data.insert_users_one.user_id.toString(),
+      //     'x-hasura-default-role': 'user',
+      //     'x-hasura-role': 'user',
+      //   },
+      //   exp: Math.floor(Date.now() / 1000) + (60 * 60),
+      // };
 
-      const token = jwt.sign(tokenContents, jwtKey);
+      // const token = jwt.sign(tokenContents, jwtKey, { expiresIn: '1h' });
 
       // success
-      return res.json({
-        ...data.insert_users_one,
-        token,
+      return res.status(201).json({
+        message: 'Account created successfully.',
+        user: { ...data.insert_users_one },
       });
     } catch (err) {
       console.log('eeeeerrr+n    +++++++_', err && err.response);
-      console.log('eeeeerrr+n    +++++++_', err && err.message);
-
       return res.status(400).json({
         message: err.message,
       });
