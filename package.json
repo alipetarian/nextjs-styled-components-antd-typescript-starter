@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "ts-node --project tsconfig.server.json src/server/index.ts",
-    "clean": "rm -rf .next",
+    "clean": "rm -rf .next && rm -rf dist",
     "build:server": "tsc --project tsconfig.server.json",
     "build:next": "next build",
     "start": "NODE_ENV=production node dist/index.js",
