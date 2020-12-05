@@ -39,3 +39,5 @@ yarn-error.log*
 #No NPM - Only Yarn
 
 package-lock.json
+
+env.*

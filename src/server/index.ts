@@ -10,7 +10,7 @@ const port = process.env.PORT || 3000;
 
 const apiPaths = {
   '/graphql': {
-    target: 'https://connectin-hasura-backend.herokuapp.com/v1',
+    target: process.env.CI_HASURA_GRAPQHL_ENDPOINT,
     pathRewrite: {
       '^/grapqhl': '/graphql',
     },
