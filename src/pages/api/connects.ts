@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import { verify } from 'jsonwebtoken';
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 

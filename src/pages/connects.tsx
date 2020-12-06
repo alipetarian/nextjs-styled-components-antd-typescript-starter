@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import ConnectsComp from 'components/connects';
 import Head from 'next/head';
 import MainLayout from 'components/common/layout';
