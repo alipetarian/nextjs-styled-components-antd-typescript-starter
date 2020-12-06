@@ -9,9 +9,7 @@ const LoginPage: React.FC = () => (
       <title>Login | ConnectIn</title>
       <link rel="icon" href="/favicon.ico" />
     </Head>
-
     <LoginComp />
-
   </div>
 );
 

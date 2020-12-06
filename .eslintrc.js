@@ -42,6 +42,8 @@ module.exports = {
     'import/extensions': 'off',
     'import/no-unresolved': 'off',
     'react/jsx-props-no-spreading': 'off',
+    'import/prefer-default-export': 'off',
+    'camelcase': 'off'
   },
   globals: {
     React: 'writable',

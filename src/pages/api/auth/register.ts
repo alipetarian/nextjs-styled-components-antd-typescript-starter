@@ -29,10 +29,13 @@ const SIGNUP_HASURA_OPERATION = `
 
 export default async function register(req: NextApiRequest, res : NextApiResponse<Data>) {
   if (req.method === 'POST') {
+    console.log('REGISTER BODY:', req.body);
     try {
       const {
         first_name, last_name, email, password, username, company_name, phone_number,
       } = req.body;
+
+      console.log('PASSWORD: ', password);
       const hashedPassword = await bcrypt.hash(password, 10);
 
       const variables = {

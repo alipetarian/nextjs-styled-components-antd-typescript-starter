@@ -1,10 +1,10 @@
 import express, { Request, Response } from 'express';
-import next from 'next';
+import nextjs from 'next';
 
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const dev = process.env.NODE_ENV !== 'production';
-const app = next({ dev });
+const app = nextjs({ dev });
 const handle = app.getRequestHandler();
 const port = process.env.PORT || 3000;
 
@@ -22,8 +22,15 @@ const apiPaths = {
   try {
     await app.prepare();
     const server = express();
+    // server.use(express.json());
     server.use('/grapqhl', createProxyMiddleware(apiPaths['/graphql']));
     server.all('*', (req: Request, res: Response) => handle(req, res));
+
+    // server.use((req : Request, res: Response, next) => {
+    //   console.log('New Request: ', req.method, req.path);
+    //   next();
+    // });
+
     server.listen(port, (err?: any) => {
       if (err) throw err;
       console.log(`> Ready on localhost:${port} - env ${process.env.NODE_ENV}`);
