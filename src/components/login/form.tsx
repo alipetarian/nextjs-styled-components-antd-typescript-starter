@@ -1,10 +1,13 @@
 import {
-  Form, Input, Button, Checkbox,
+  Form, Input, Button, Checkbox, Spin, message,
 } from 'antd';
 
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import styled from 'styled-components';
+import { useState } from 'react';
+import { login } from 'services/auth';
+import Router from 'next/router';
 
 const StyledForm = styled.div(
   ({
@@ -43,6 +46,23 @@ const validationSchema = yup.object().shape({
 const FormItem = Form.Item;
 
 const LoginForm: React.FC = () => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const handleSubmit = async (values: any) => {
+    setLoading(true);
+    try {
+      const { data } = await login(values);
+      console.log('Data: ', data);
+      message.success(data.message);
+      setLoading(false);
+      Router.replace('/connects');
+    } catch (error) {
+      console.log('SOMETHING WENT WRONG:', error && error.response);
+      message.error(error.response.data.message);
+      setLoading(false);
+    }
+    console.log('Formik Values,', JSON.stringify(values, null, 2));
+  };
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -50,63 +70,59 @@ const LoginForm: React.FC = () => {
     },
     validationSchema,
 
-    onSubmit: (values) => {
-      console.log('Formik Values,', JSON.stringify(values, null, 2));
-    },
+    onSubmit: handleSubmit,
   });
 
   return (
     <StyledForm>
-      <Form
-        layout="vertical"
-        name="login-form"
-        onFinish={formik.handleSubmit}
-      >
-        <FormItem
-          help={formik.touched.email && formik.errors.email ? formik.errors.email : ''}
-          validateStatus={formik.touched.email && formik.errors.email ? 'error' : undefined}
-          label="Email"
+      <Spin spinning={loading}>
+        <Form
+          layout="vertical"
+          name="login-form"
+          onFinish={formik.handleSubmit}
         >
-          <Input
-            name="email"
-            placeholder="Email"
-            value={formik.values.email}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          />
-        </FormItem>
+          <FormItem
+            help={formik.touched.email && formik.errors.email ? formik.errors.email : ''}
+            validateStatus={formik.touched.email && formik.errors.email ? 'error' : undefined}
+            label="Email"
+          >
+            <Input
+              name="email"
+              placeholder="Email"
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+          </FormItem>
 
-        <FormItem
-          label="Password"
-          help={formik.touched.password && formik.errors.password ? formik.errors.password : ''}
-          validateStatus={
+          <FormItem
+            label="Password"
+            help={formik.touched.password && formik.errors.password ? formik.errors.password : ''}
+            validateStatus={
             formik.touched.password && formik.errors.password ? 'error' : undefined
           }
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <Input.Password
-            name="password"
-            placeholder="Password"
-            value={formik.values.password}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          />
-        </FormItem>
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <Input.Password
+              name="password"
+              placeholder="Password"
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+          </FormItem>
 
-        <FormItem name="remember" valuePropName="checked">
-          <Checkbox>Remember me</Checkbox>
-        </FormItem>
-
-        <FormItem>
-          <Button type="primary" key="submit" htmlType="submit">
-            Submit
-          </Button>
-        </FormItem>
-      </Form>
+          <FormItem>
+            <Button type="primary" key="submit" htmlType="submit">
+              Submit
+            </Button>
+          </FormItem>
+        </Form>
+      </Spin>
     </StyledForm>
   );
 };

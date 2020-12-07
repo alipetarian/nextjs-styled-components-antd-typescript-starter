@@ -17,28 +17,17 @@ const ConnectsPage: NextPage = () => (
 );
 
 export const getServerSideProps = async (ctx: NextPageContext) => {
-  // console.log('CONTEXT IN GET SERVER SIDE', ctx);
+  let connects : any = {};
+  try {
+    const { data } = await axiosGetWithCtx(`${process.env.CI_BASE_URL}/api/connects`, ctx);
+    if (data) { connects = data; }
+    console.log('DATA IN: GET INITIAL PROPS', data);
+  } catch (error) {
+    console.log('Error gettting connects', error);
+  }
 
-  // const cookie = ctx.req?.headers.cookie;
-
-  // console.log('COOKIE:++++++++++++ ', ctx.req?.headers);
-  const { data } = await axiosGetWithCtx('http://localhost:3000/api/connects', ctx);
-  console.log('DATA IN: GET INITIAL PROPS', data);
-  return { props: { connects: {} } };
-
-  // const res = await fetch('https://.../data');
-  // const data: Data = await res.json();
-
-  // return {
-  //   props: {
-  //     data,
-  //   },
-  // };
+  return { props: { connects } };
 };
-
-// export GetServerSideProps = async (ctx: NextPageContext) => {
-
-// };
 
 (ConnectsPage as PageWithLayoutType).layout = MainLayout;
 

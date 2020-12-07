@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import nextjs from 'next';
+import cookieParser from 'cookie-parser';
 
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
@@ -22,8 +23,8 @@ const apiPaths = {
   try {
     await app.prepare();
     const server = express();
-    // server.use(express.json());
     server.use('/grapqhl', createProxyMiddleware(apiPaths['/graphql']));
+    server.use(cookieParser());
     server.all('*', (req: Request, res: Response) => handle(req, res));
 
     // server.use((req : Request, res: Response, next) => {
