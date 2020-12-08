@@ -6,8 +6,7 @@ import PageWithLayoutType from 'types/page-with-layout';
 const HomePage: React.FC = () => (
   <div>
     <Head>
-      <title>Create Next App</title>
-      <link rel="icon" href="/favicon.ico" />
+      <title>Home | ConnectIn</title>
     </Head>
     <HomeComp />
   </div>

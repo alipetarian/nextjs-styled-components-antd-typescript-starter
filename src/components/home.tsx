@@ -11,6 +11,10 @@ const HomeComp: React.FC = () => (
     <Link href="/connects">
       <a>Connects</a>
     </Link>
+    <br />
+    <Link href="/connects/add-connect">
+      <a>Add New Connect</a>
+    </Link>
   </>
 );
 

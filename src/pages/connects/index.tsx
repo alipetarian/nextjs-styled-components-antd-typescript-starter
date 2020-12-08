@@ -10,7 +10,6 @@ const ConnectsPage: NextPage = () => (
   <div>
     <Head>
       <title>My Connects - ConnectIn</title>
-      <link rel="icon" href="/favicon.ico" />
     </Head>
     <ConnectsComp />
   </div>

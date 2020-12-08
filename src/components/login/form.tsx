@@ -1,5 +1,5 @@
 import {
-  Form, Input, Button, Checkbox, Spin, message,
+  Form, Input, Button, Spin, message,
 } from 'antd';
 
 import * as yup from 'yup';

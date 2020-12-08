@@ -2,6 +2,7 @@
 import type { AppProps } from 'next/app';
 import 'antd/dist/antd.css';
 import PageWithLayoutType from 'types/page-with-layout';
+import Head from 'next/head';
 
 type AppLayoutProps = AppProps & {
   Component: PageWithLayoutType
@@ -12,9 +13,15 @@ function MyApp({ Component, pageProps }: AppLayoutProps) {
   || ((page) => <>{page}</>);
 
   return (
-    <MainLayout>
-      <Component {...pageProps} />
-    </MainLayout>
+    <>
+      <Head>
+        <title>ConnectIn</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <MainLayout>
+        <Component {...pageProps} />
+      </MainLayout>
+    </>
   );
 }
 
