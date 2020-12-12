@@ -13,7 +13,7 @@ const apiPaths = {
   '/graphql': {
     target: process.env.CI_HASURA_GRAPQHL_ENDPOINT,
     pathRewrite: {
-      '^/grapqhl': '/graphql',
+      '^/graphql': '/graphql',
     },
     changeOrigin: true,
   },
@@ -23,7 +23,7 @@ const apiPaths = {
   try {
     await app.prepare();
     const server = express();
-    server.use('/grapqhl', createProxyMiddleware(apiPaths['/graphql']));
+    server.use('/graphql', createProxyMiddleware(apiPaths['/graphql']));
     server.use(cookieParser());
     server.all('*', (req: Request, res: Response) => handle(req, res));
 

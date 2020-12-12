@@ -1,14 +1,18 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import {
   Form, Input, Button, Row, Col, Spin, message, Select,
 } from 'antd';
 import Router from 'next/router';
 
 import * as yup from 'yup';
-import { useFormik } from 'formik';
+import { useField, useFormik } from 'formik';
 import styled from 'styled-components';
 import { createConnect } from 'services/connects';
 import { useState } from 'react';
 import { Connect } from 'types/connect';
+import { get } from 'http';
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -57,8 +61,8 @@ const validationSchema = yup.object().shape({
     .max(255)
     .required(requiredField('Phone Number')),
   frequency: yup
-    .string(),
-  // .required(requiredField('Freqency')),
+    .string()
+    .required(requiredField('Freqency')),
   start_date: yup
     .string()
     .required(requiredField('Start Date')),
@@ -105,7 +109,7 @@ const ConnectForm: React.FC = () => {
       notes_about_them: '',
       notes_advice_wanted: '',
       notes_what_is_common: '',
-      frequency: 'weekly',
+      frequency: '',
       start_date: '',
     },
     validationSchema,
@@ -166,7 +170,6 @@ const ConnectForm: React.FC = () => {
                 />
               </FormItem>
             </Col>
-
             <Col xs={24} sm={12}>
               <FormItem
                 help={formik.touched.company_name && formik.errors.company_name ? formik.errors.company_name : ''}
@@ -204,45 +207,20 @@ const ConnectForm: React.FC = () => {
                 validateStatus={formik.touched.frequency && formik.errors.frequency ? 'error' : undefined}
                 label="Connect Frequency"
               >
-
-                {/* <FormikProvider value={formik}> */}
-                {/* <Field
-                  name="frequency"
-                  render={({ field }: any) => (
-                    <Select
-                      {...field}
-                      placeholder="Connect Frequency"
-                      style={{ width: 120 }}
-                      onBlur={formik.handleBlur}
-                      onChange={formik.handleChange}
-                      onSelect={formik.handleChange}
-                    >
-                      <Option value="weekly">Weekly</Option>
-                      <Option value="monthly">Monthly</Option>
-                    </Select>
-                  )}
-                /> */}
-                {/* </FormikProvider> */}
+                {JSON.stringify({ ...formik.getFieldProps('frequency') })}
                 <Select
                   placeholder="Connect Frequency"
                   style={{ width: 120 }}
-                  onBlur={formik.handleBlur}
-                  onChange={formik.handleChange}
-                  onSelect={formik.handleChange}
                   value={formik.values.frequency}
+                  onChange={(value) => { formik.setFieldValue('frequency', value); }}
+                  onBlur={formik.handleBlur}
+                  onSelect={formik.handleChange}
                 >
                   <Option value="weekly">Weekly</Option>
                   <Option value="monthly">Monthly</Option>
                 </Select>
-                {/* <Input
-                  name="frequency"
-                  placeholder="Connect Frequency"
-                  value={formik.values.frequency}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                /> */}
-
               </FormItem>
+
             </Col>
             <Col xs={24} sm={12}>
               <FormItem
