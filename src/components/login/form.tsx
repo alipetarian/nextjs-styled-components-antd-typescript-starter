@@ -5,10 +5,11 @@ import {
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { login } from 'services/auth';
 import Router from 'next/router';
-import { setAuthCookie } from '../../utils/authContext';
+
+import { authContext, ContextProps } from 'utils/auth-provider';
 
 const StyledForm = styled.div(
   ({
@@ -48,6 +49,8 @@ const FormItem = Form.Item;
 
 const LoginForm: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
+  const auth = useContext<ContextProps>(authContext);
+
   const handleSubmit = async (values: any) => {
     setLoading(true);
     try {
@@ -55,8 +58,7 @@ const LoginForm: React.FC = () => {
       console.log('Data: ', data);
       message.success(data.message);
       setLoading(false);
-      // console.log()
-      setAuthCookie(data.auth);
+      auth.dispatch({ type: 'LOGIN_USER', auth: data.auth });
       Router.replace('/');
     } catch (error) {
       console.log('SOMETHING WENT WRONG:', error && error.response);

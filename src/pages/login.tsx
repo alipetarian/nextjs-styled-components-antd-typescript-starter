@@ -1,13 +1,15 @@
 import LoginComp from 'components/login';
 import Head from 'next/head';
-import { removeAuthCookie } from 'utils/authContext';
+// import { removeAuthCookie } from 'utils/auth-provider';
 import MainLayout from 'components/common/layout';
 import PageWithLayoutType from 'types/page-with-layout';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
+import { authContext, ContextProps } from 'utils/auth-provider';
 
 const LoginPage: React.FC = () => {
+  const auth = useContext<ContextProps>(authContext);
   useEffect(() => {
-    removeAuthCookie();
+    auth.dispatch({ type: 'LOGOUT_USER' });
   }, []);
   return (
     <div>

@@ -7,4 +7,5 @@ export type User = {
   username: string
   phone_number: string
   confirm_password?: string
+  user_id?: string
 }

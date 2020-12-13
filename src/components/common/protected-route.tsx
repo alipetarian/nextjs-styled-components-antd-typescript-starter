@@ -1,13 +1,13 @@
 import { useContext, useEffect } from 'react';
 import Router from 'next/router';
-import { AuthContext } from 'utils/authContext';
+import { authContext } from 'utils/auth-provider';
 
 type Props = {
   children: React.ReactNode
 }
 
 const ProtectedPage:React.FC<Props> = ({ children }: Props) => {
-  const auth = useContext(AuthContext);
+  const { auth } = useContext(authContext);
   console.log('AUTHCONTEXT  in protected route ', auth);
 
   useEffect(() => {

@@ -31,3 +31,5 @@ export const axiosGetWithCtx = async (url: string, ctx: NextPageContext) : Promi
     }
   }
 };
+
+export const isBrowser = () => typeof window !== 'undefined';
