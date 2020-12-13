@@ -5,28 +5,29 @@ import MainLayout from 'components/common/layout';
 import PageWithLayoutType from 'types/page-with-layout';
 import { NextPage, NextPageContext, GetServerSideProps } from 'next';
 import { axiosGetWithCtx } from 'utils/helpers';
+import ProtectedPage from 'components/common/protected-route';
 
 const ConnectsPage: NextPage = () => (
-  <div>
+  <ProtectedPage>
     <Head>
       <title>My Connects - ConnectIn</title>
     </Head>
     <ConnectsComp />
-  </div>
+  </ProtectedPage>
 );
 
-export const getServerSideProps = async (ctx: NextPageContext) => {
-  let connects : any = {};
-  try {
-    const { data } = await axiosGetWithCtx(`${process.env.CI_BASE_URL}/api/connects`, ctx);
-    if (data) { connects = data; }
-    console.log('DATA IN: GET INITIAL PROPS', data);
-  } catch (error) {
-    console.log('Error gettting connects', error);
-  }
+// export const getServerSideProps = async (ctx: NextPageContext) => {
+//   let connects : any = {};
+//   try {
+//     const { data } = await axiosGetWithCtx(`${process.env.CI_BASE_URL}/api/connects`, ctx);
+//     if (data) { connects = data; }
+//     console.log('DATA IN: GET INITIAL PROPS', data);
+//   } catch (error) {
+//     console.log('Error gettting connects', error);
+//   }
 
-  return { props: { connects } };
-};
+//   return { props: { connects } };
+// };
 
 (ConnectsPage as PageWithLayoutType).layout = MainLayout;
 

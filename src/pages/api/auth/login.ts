@@ -1,17 +1,17 @@
 /* eslint-disable camelcase */
 import type { NextApiRequest, NextApiResponse } from 'next';
-import cookie from 'cookie';
 import axios from 'axios';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import { Auth } from 'types/auth';
 
 const jwtKey = process.env.CI_JWT_SECRET_KEY || '';
-// const adminEmail = process.env.CI_ADMIN_EMAIL;
 const hasuraEndpoint = `${process.env.CI_HASURA_GRAPQHL_ENDPOINT}/graphql`;
 
 type Data = {
   message: string
-  code?: string | number
+  code?: string | number,
+  auth?: Auth
  }
 
 const GET_USER_WITH_EMAIL_OPERATION = `
@@ -65,7 +65,9 @@ export default async function login(req: NextApiRequest, res : NextApiResponse<D
 
         const tokenContents = {
           sub: user.user_id.toString(),
-          name: `${user.first_name} ${user.last_name}`,
+          firstName: user.first_name,
+          lastName: user.last_name,
+          email: user.email,
           iat: Date.now() / 1000,
           'https://hasura.io/jwt/claims': {
             'x-hasura-allowed-roles': ['user'],
@@ -77,17 +79,27 @@ export default async function login(req: NextApiRequest, res : NextApiResponse<D
 
         const token = jwt.sign(tokenContents, jwtKey, { expiresIn: '1h' });
 
-        res.setHeader('Set-Cookie', cookie.serialize('auth', token, {
-          httpOnly: true,
-          secure: process.env.NODE_ENV !== 'development',
-          sameSite: 'strict',
-          maxAge: 3600,
-          path: '/',
-        }));
+        const auth: Auth = {
+          token,
+          data: {
+            user_id: user.user_id.toString(),
+            first_name: user.first_name,
+            last_name: user.last_name,
+            email: user.email,
+          },
+        };
+        // res.setHeader('Set-Cookie', cookie.serialize('auth', JSON.stringify(auth), {
+        //   httpOnly: false,
+        //   secure: process.env.NODE_ENV !== 'development',
+        //   sameSite: 'strict',
+        //   maxAge: 3600,
+        //   path: '/',
+        // }));
 
         // success
         return res.json({
           message: 'User Logged in successfully.',
+          auth,
         });
       }
 

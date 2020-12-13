@@ -89,11 +89,16 @@ const ConnectForm: React.FC = () => {
     try {
       const { data } = await createConnect(values);
       console.log('Data: ', data);
-      message.success(data.message);
+
+      // check for errors
+      if (data.errors) {
+        message.error(data.errors[0].message);
+      } else {
+        message.success('Connect added successfully.');
+      }
       setLoading(false);
-      Router.replace('/login');
     } catch (error) {
-      console.log('SOMETHING WENT WRONG:', error && error.response);
+      console.log('SOMETHING WENT WRONG:', (error && error.response) || error);
       message.error('Something went wrong.');
       setLoading(false);
     }
@@ -202,12 +207,10 @@ const ConnectForm: React.FC = () => {
             </Col>
             <Col xs={24} sm={12}>
               <FormItem
-                name="frequency"
                 help={formik.touched.frequency && formik.errors.frequency ? formik.errors.frequency : ''}
                 validateStatus={formik.touched.frequency && formik.errors.frequency ? 'error' : undefined}
                 label="Connect Frequency"
               >
-                {JSON.stringify({ ...formik.getFieldProps('frequency') })}
                 <Select
                   placeholder="Connect Frequency"
                   style={{ width: 120 }}

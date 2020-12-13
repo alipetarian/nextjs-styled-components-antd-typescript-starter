@@ -8,6 +8,7 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import { login } from 'services/auth';
 import Router from 'next/router';
+import { setAuthCookie } from '../../utils/authContext';
 
 const StyledForm = styled.div(
   ({
@@ -54,7 +55,9 @@ const LoginForm: React.FC = () => {
       console.log('Data: ', data);
       message.success(data.message);
       setLoading(false);
-      Router.replace('/connects');
+      // console.log()
+      setAuthCookie(data.auth);
+      Router.replace('/');
     } catch (error) {
       console.log('SOMETHING WENT WRONG:', error && error.response);
       message.error(error.response.data.message);
@@ -69,7 +72,6 @@ const LoginForm: React.FC = () => {
       password: '',
     },
     validationSchema,
-
     onSubmit: handleSubmit,
   });
 
