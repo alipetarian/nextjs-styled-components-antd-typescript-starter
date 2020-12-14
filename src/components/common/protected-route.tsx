@@ -14,7 +14,7 @@ const ProtectedPage:React.FC<Props> = ({ children }: Props) => {
     if (!auth.token) { Router.replace('/login'); }
   }, []);
 
-  if (!auth.token) { return <><h3>Loading</h3></>; }
+  if (!auth.token) { return <h3>Loading-test</h3>; }
 
   return (
     <>

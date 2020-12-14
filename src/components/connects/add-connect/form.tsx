@@ -10,9 +10,9 @@ import * as yup from 'yup';
 import { useField, useFormik } from 'formik';
 import styled from 'styled-components';
 import { createConnect } from 'services/connects';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Connect } from 'types/connect';
-import { get } from 'http';
+import { authContext, ContextProps } from 'utils/auth-provider';
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -83,11 +83,12 @@ const FormItem = Form.Item;
 
 const ConnectForm: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
+  const { auth } = useContext<ContextProps>(authContext);
 
   const handleSubmit = async (values: Connect) => {
     setLoading(true);
     try {
-      const { data } = await createConnect(values);
+      const { data } = await createConnect({ ...values, user_id: auth.data.user_id });
       console.log('Data: ', data);
 
       // check for errors
@@ -95,6 +96,7 @@ const ConnectForm: React.FC = () => {
         message.error(data.errors[0].message);
       } else {
         message.success('Connect added successfully.');
+        Router.push('/connects');
       }
       setLoading(false);
     } catch (error) {

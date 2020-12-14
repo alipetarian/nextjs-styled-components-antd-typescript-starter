@@ -8,6 +8,7 @@ import Cookies from 'js-cookie';
 import { isEmpty } from 'lodash';
 
 import { Auth } from 'types/auth';
+import { removeAuthorization, setAuthorization } from 'services/http-service';
 import { isBrowser } from './helpers';
 
 type Actions =
@@ -98,8 +99,10 @@ export const AuthProvider = ({ children }: Props) => {
     console.log('AUTH IN AUTH PROVIDER EFFECT', auth);
     if (isBrowser() && !isEmpty(auth && auth.token)) {
       setIsAuthenticated(true);
+      setAuthorization(auth.token);
     } else {
       setIsAuthenticated(false);
+      removeAuthorization();
     }
   }, [auth]);
 

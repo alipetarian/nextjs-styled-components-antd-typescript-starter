@@ -42,10 +42,65 @@ const INSERT_CONNECTS_ONE = `
   }
 `;
 
+const GET_CONNECTS = `
+  query {
+    connects {
+      company_name
+      connect_id
+      email
+      first_name
+      frequency
+      last_name
+      notes_about_them
+      notes_advice_wanted
+      notes_what_is_common
+      phone_number
+      start_date
+    }
+  }
+`;
+
+const GET_CONNECT = `
+  query GetCoonect($connect_id: uuid) {
+    connects(where: {connect_id: {_eq: $connect_id}}){
+      company_name
+        connect_id
+        email
+        first_name
+        frequency
+        last_name
+        notes_about_them
+        notes_advice_wanted
+        notes_what_is_common
+        phone_number
+        start_date
+    }
+  }
+`;
 export const createConnect = (variables : Connect) => {
   const body = JSON.stringify({
     query: INSERT_CONNECTS_ONE,
     variables,
+  });
+
+  return httpService.post('/graphql', body, axiosConfig);
+};
+
+export const getConnects = () => {
+  const body = JSON.stringify({
+    query: GET_CONNECTS,
+  });
+
+  return httpService.post('/graphql', body, axiosConfig);
+};
+
+export const getConnect = (connect_id: any) => {
+  console.log('INSIDE GET CONNECTION', connect_id);
+  const body = JSON.stringify({
+    query: GET_CONNECT,
+    variables: {
+      connect_id,
+    },
   });
 
   return httpService.post('/graphql', body, axiosConfig);

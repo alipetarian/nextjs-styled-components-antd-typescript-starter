@@ -9,6 +9,7 @@ export const removeAuthorization = () => {
   console.log('INSIDE REMOVE --- REMOVE Authorization');
   delete axios.defaults.headers.common.Authorization;
 };
+
 export default {
   get: axios.get,
   post: axios.post,

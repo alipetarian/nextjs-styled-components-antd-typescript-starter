@@ -13,9 +13,6 @@ function MyApp({ Component, pageProps }: AppLayoutProps) {
   const MainLayout = Component.layout
   || ((page) => <>{page}</>);
 
-  // const [auth] = useState(getAuthCookie());
-
-  // if (auth.token) { setAuthorization(auth.token); }
   return (
     <AuthProvider>
       <Head>
