@@ -10,4 +10,5 @@ export type Connect = {
   frequency: string,
   start_date: string,
   user_id?: string
+  connect_id?:string
 }
