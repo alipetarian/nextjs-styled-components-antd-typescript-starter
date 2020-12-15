@@ -23,7 +23,7 @@ const apiPaths = {
   try {
     await app.prepare();
     const server = express();
-    server.use('/graphql', createProxyMiddleware(apiPaths['/graphql']));
+    // server.use('/graphql', createProxyMiddleware(apiPaths['/graphql']));
     server.use(cookieParser());
     server.all('*', (req: Request, res: Response) => handle(req, res));
 
