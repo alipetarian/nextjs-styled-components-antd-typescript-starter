@@ -27,9 +27,9 @@ const StyledForm = styled.div(
 `,
 );
 
-const emailNotLongEnough = 'email must be at least 3 characters';
-const passwordNotLongEnough = 'password must be at least 3 characters';
-const invalidEmail = 'email must be a valid email';
+const emailNotLongEnough = 'Email must be at least 3 characters';
+const passwordNotLongEnough = 'Password must be at least 3 characters';
+const invalidEmail = 'Email must be a valid email';
 
 const validationSchema = yup.object().shape({
   email: yup
@@ -88,11 +88,11 @@ const LoginForm: React.FC = () => {
           <FormItem
             help={formik.touched.email && formik.errors.email ? formik.errors.email : ''}
             validateStatus={formik.touched.email && formik.errors.email ? 'error' : undefined}
-            label="Email"
+            label="Email / Username"
           >
             <Input
               name="email"
-              placeholder="Email"
+              placeholder="Email / Username"
               value={formik.values.email}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}

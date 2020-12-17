@@ -16,13 +16,12 @@ type Data = {
 }
 
 const SIGNUP_HASURA_OPERATION = `
-  mutation ($email: String!, $first_name: String!, $last_name: String!, $password: String!, $username: String!, $company_name: String!,$phone_number: String!) {
-    insert_users_one(object: {email: $email, first_name: $first_name, last_name: $last_name, password: $password, username: $username, company_name: $company_name, phone_number: $phone_number}) {
+  mutation ($email: String!, $first_name: String!, $last_name: String!, $password: String!, $company_name: String!,$phone_number: String!) {
+    insert_users_one(object: {email: $email, first_name: $first_name, last_name: $last_name, password: $password, company_name: $company_name, phone_number: $phone_number}) {
       user_id,
       first_name,
       last_name,
-      email,
-      username
+      email
     }
   }
 `;
@@ -32,7 +31,7 @@ export default async function register(req: NextApiRequest, res : NextApiRespons
     console.log('REGISTER BODY:', req.body);
     try {
       const {
-        first_name, last_name, email, password, username, company_name, phone_number,
+        first_name, last_name, email, password, company_name, phone_number,
       } = req.body;
 
       console.log('PASSWORD: ', password);
@@ -43,7 +42,6 @@ export default async function register(req: NextApiRequest, res : NextApiRespons
         last_name,
         email,
         password: hashedPassword,
-        username,
         company_name,
         phone_number,
 

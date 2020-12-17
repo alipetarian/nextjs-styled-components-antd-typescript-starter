@@ -55,10 +55,6 @@ const validationSchema = yup.object().shape({
     .string()
     .max(255)
     .required(requiredField('Phone Number')),
-  username: yup
-    .string()
-    .min(4)
-    .required(requiredField('Username')),
   password: yup
     .string()
     .min(8, passwordNotLongEnough(8))
@@ -99,7 +95,6 @@ const RegisterForm: React.FC = () => {
       first_name: '',
       last_name: '',
       email: '',
-      username: '',
       password: '',
       phone_number: '',
       company_name: '',
@@ -152,27 +147,12 @@ const RegisterForm: React.FC = () => {
               <FormItem
                 help={formik.touched.email && formik.errors.email ? formik.errors.email : ''}
                 validateStatus={formik.touched.email && formik.errors.email ? 'error' : undefined}
-                label="Email"
+                label="Email / Username"
               >
                 <Input
                   name="email"
-                  placeholder="Email"
+                  placeholder="Email / Username"
                   value={formik.values.email}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-              </FormItem>
-            </Col>
-            <Col xs={24} sm={12}>
-              <FormItem
-                help={formik.touched.username && formik.errors.username ? formik.errors.username : ''}
-                validateStatus={formik.touched.username && formik.errors.username ? 'error' : undefined}
-                label="Username"
-              >
-                <Input
-                  name="username"
-                  placeholder="User Name"
-                  value={formik.values.username}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
@@ -226,8 +206,8 @@ const RegisterForm: React.FC = () => {
             <Col xs={24} sm={12}>
               <FormItem
                 label="Confirm Password"
-                help={formik.touched.confirm_password && formik.errors.confirm_password ? formik.errors.confirm_password : ''}
-                validateStatus={formik.touched.confirm_password && formik.errors.confirm_password ? 'error' : undefined}
+                help={(formik.touched.confirm_password || formik.touched.password) && formik.errors.confirm_password ? formik.errors.confirm_password : ''}
+                validateStatus={(formik.touched.confirm_password || formik.touched.password) && formik.errors.confirm_password ? 'error' : undefined}
               >
                 <Input.Password
                   name="confirm_password"
