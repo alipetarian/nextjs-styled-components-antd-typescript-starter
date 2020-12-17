@@ -2,22 +2,22 @@ import express, { Request, Response } from 'express';
 import nextjs from 'next';
 import cookieParser from 'cookie-parser';
 
-const { createProxyMiddleware } = require('http-proxy-middleware');
+// const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = nextjs({ dev });
 const handle = app.getRequestHandler();
 const port = process.env.PORT || 3000;
 
-const apiPaths = {
-  '/graphql': {
-    target: process.env.CI_HASURA_GRAPQHL_ENDPOINT,
-    pathRewrite: {
-      '^/graphql': '/graphql',
-    },
-    changeOrigin: true,
-  },
-};
+// const apiPaths = {
+//   '/graphql': {
+//     target: process.env.CI_HASURA_GRAPQHL_ENDPOINT,
+//     pathRewrite: {
+//       '^/graphql': '/graphql',
+//     },
+//     changeOrigin: true,
+//   },
+// };
 
 (async () => {
   try {
