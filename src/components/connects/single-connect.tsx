@@ -6,7 +6,12 @@ import { useEffect, useState } from 'react';
 import { getConnect } from 'services/connects';
 import { useRouter } from 'next/router';
 import { Connect } from 'types/connect';
+import moment from 'moment-timezone';
+import Moment from 'react-moment';
 
+const timezone = moment.tz.guess();
+
+console.log('TIMESONE ', timezone);
 const SingleConnectComp: React.FC = () => {
   const [connect, setConnect] = useState<Connect>();
   // const [isLoading, setIsLoading] = useState(false);
@@ -38,9 +43,9 @@ const SingleConnectComp: React.FC = () => {
     };
 
     // Temporary hack to fix axios default header on nextjs direct call to server page
-    setTimeout(() => fetchData(), 500);
+    if (connect_id) { setTimeout(() => fetchData(), 500); }
     // fetchData();
-  }, []);
+  }, [connect_id]);
 
   const {
     first_name, last_name, email, phone_number,
@@ -142,10 +147,11 @@ const SingleConnectComp: React.FC = () => {
             </Col>
 
             <Col span={6}>
+              {JSON.stringify(moment.utc(start_date).tz(timezone).format('dddd, MMMM Do YYYY, h:mm:ss a'))}
               <List.Item>
                 <List.Item.Meta
                   title="Start Date"
-                  description={start_date}
+                  description={<Moment date={moment.utc(start_date).tz(timezone)} format="dddd, MMMM Do YYYY, h:mm:ss a" />}
                 />
               </List.Item>
             </Col>

@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import {
-  Form, Input, Button, Row, Col, Select,
+  Form, Input, Button, Row, Col, Select, DatePicker, Space,
 } from 'antd';
 
 import * as yup from 'yup';
@@ -199,13 +199,23 @@ const ConnectForm: React.FC<Props> = ({ handleSubmit, initialValues }: Props) =>
               validateStatus={formik.touched.start_date && formik.errors.start_date ? 'error' : undefined}
               label="Start Date"
             >
-              <Input
+              <Space direction="horizontal">
+                <DatePicker
+                  placeholder="Start Date"
+                  name="start_date"
+                  onChange={(date) => {
+                    const isoDate = date?.toISOString();
+                    formik.setFieldValue('start_date', isoDate);
+                  }}
+                />
+              </Space>
+              {/* <Input
                 name="start_date"
                 placeholder="Start Date"
                 value={formik.values.start_date}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-              />
+              /> */}
             </FormItem>
           </Col>
 
