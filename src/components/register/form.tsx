@@ -153,7 +153,10 @@ const RegisterForm: React.FC = () => {
                   name="email"
                   placeholder="Email / Username"
                   value={formik.values.email}
-                  onChange={formik.handleChange}
+                  onChange={(event) => {
+                    const formattedEmail = event.target.value.toLowerCase();
+                    formik.setFieldValue('email', formattedEmail);
+                  }}
                   onBlur={formik.handleBlur}
                 />
               </FormItem>

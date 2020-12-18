@@ -138,7 +138,10 @@ const ConnectForm: React.FC<Props> = ({ handleSubmit, initialValues }: Props) =>
                 name="email"
                 placeholder="Email"
                 value={formik.values.email}
-                onChange={formik.handleChange}
+                onChange={(event) => {
+                  const formattedEmail = event.target.value.toLowerCase();
+                  formik.setFieldValue('email', formattedEmail);
+                }}
                 onBlur={formik.handleBlur}
               />
             </FormItem>
