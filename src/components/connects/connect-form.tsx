@@ -9,6 +9,7 @@ import * as yup from 'yup';
 import { useFormik } from 'formik';
 import styled from 'styled-components';
 import { Connect } from 'types/connect';
+import moment from 'moment-timezone';
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -89,6 +90,8 @@ const ConnectForm: React.FC<Props> = ({ handleSubmit, initialValues }: Props) =>
     enableReinitialize: true,
     onSubmit: handleSubmit,
   });
+
+  console.log('FORMIK VALUES:', formik.values);
 
   return (
     <StyledForm>
@@ -208,7 +211,7 @@ const ConnectForm: React.FC<Props> = ({ handleSubmit, initialValues }: Props) =>
             >
               <Space direction="horizontal">
                 <DatePicker
-                  defaultValue={start_date}
+                  value={moment(formik.values.start_date)}
                   placeholder="Start Date"
                   name="start_date"
                   onChange={(date) => {
@@ -217,13 +220,6 @@ const ConnectForm: React.FC<Props> = ({ handleSubmit, initialValues }: Props) =>
                   }}
                 />
               </Space>
-              {/* <Input
-                name="start_date"
-                placeholder="Start Date"
-                value={formik.values.start_date}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              /> */}
             </FormItem>
           </Col>
 
