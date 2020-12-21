@@ -190,8 +190,12 @@ const ConnectForm: React.FC<Props> = ({ handleSubmit, initialValues }: Props) =>
                 onBlur={formik.handleBlur}
                 onSelect={formik.handleChange}
               >
-                <Option value="weekly">Weekly</Option>
-                <Option value="monthly">Monthly</Option>
+                <Option value="">Select Frequency</Option>
+                <Option value="30-days">30 Days</Option>
+                <Option value="60-days">60 Days</Option>
+                <Option value="90-days">90 Days</Option>
+                <Option value="180-days">180 Days</Option>
+                <Option value="yearly">Yearly</Option>
               </Select>
             </FormItem>
 
@@ -204,6 +208,7 @@ const ConnectForm: React.FC<Props> = ({ handleSubmit, initialValues }: Props) =>
             >
               <Space direction="horizontal">
                 <DatePicker
+                  defaultValue={start_date}
                   placeholder="Start Date"
                   name="start_date"
                   onChange={(date) => {
