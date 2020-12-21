@@ -13,6 +13,7 @@
     "lint": "eslint src/**/*.ts{,x}"
   },
   "dependencies": {
+    "@sendgrid/mail": "^7.4.0",
     "antd": "^4.8.5",
     "axios": "^0.21.0",
     "bcrypt": "^5.0.0",
