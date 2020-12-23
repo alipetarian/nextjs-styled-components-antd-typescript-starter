@@ -3,44 +3,22 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import SendgridMail from '@sendgrid/mail';
-import { BaseEmailService } from './base-email';
+import { SENDGRID_SENDER_EMAIL } from 'utils/constants';
+import { MainLayout } from './templates/layout';
 import {
   VERIFY_USER_CONTENT,
-  UPDATE_USER_PASSWORD_CONTENT,
-  RESET_USER_PASSWORD_CONTENT,
 } from './templates/user';
 
-export class UserEmailService extends BaseEmailService {
-  constructor() {
-    super();
-    this.email.subject = 'Registration Info';
-  }
+const defaultEmail = {
+  to: '',
+  from: SENDGRID_SENDER_EMAIL,
+  cc: [],
+  subject: 'Connectin App',
+  html: MainLayout(''),
+};
 
-  verifyUser(user: any): void {
-    this.email.subject = 'User verification';
-    this.email.to = user.email;
-    this.email.html = VERIFY_USER_CONTENT(user);
-    SendgridMail.send(this.email);
-  }
+export const registerUser = (user: any): Promise<any> => {
+  const { email } = user;
 
-  reVerifyUser(user: any): void {
-    this.email.subject = 'Re-verification';
-    this.email.to = user.email;
-    this.email.html = VERIFY_USER_CONTENT(user);
-    SendgridMail.send(this.email);
-  }
-
-  resetPassword(user: any): void {
-    this.email.to = user.email;
-    this.email.subject = 'Reset Password';
-    this.email.html = RESET_USER_PASSWORD_CONTENT(user);
-    SendgridMail.send(this.email);
-  }
-
-  updatePassword(user: any): void {
-    this.email.to = user.email;
-    this.email.subject = 'Password Updated';
-    this.email.html = UPDATE_USER_PASSWORD_CONTENT(user);
-    SendgridMail.send(this.email);
-  }
-}
+  return SendgridMail.send({ ...defaultEmail, to: email, html: VERIFY_USER_CONTENT(user) });
+};

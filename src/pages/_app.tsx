@@ -3,7 +3,10 @@ import type { AppProps } from 'next/app';
 import 'antd/dist/antd.css';
 import PageWithLayoutType from 'types/page-with-layout';
 import Head from 'next/head';
+// import sgMail from '@sendgrid/mail';
 import { AuthProvider } from '../utils/auth-provider';
+
+// sgMail.setApiKey(process.env.CI_SENDGRID_API_KEY || '');
 
 type AppLayoutProps = AppProps & {
   Component: PageWithLayoutType
